@@ -2,7 +2,7 @@
 
 Huom! GDPR-lainsäädäntö rajoittaa muistiinpanojen pitämistä. Ohjelmantekijä ei ota mitään vastuuta ohjelman väärinkäytöksistä.
 
-Repositoriossa on toistaiseksi suoritettava ohjelmatiedosto ainoastaan Windowsille. Ohjelman koodi löytyy omasta kansiostaan ja sitä voi ajaa myös muilla käyttöjärjestelmillä, jos tietokoneelle on asennettu Python-tulkki. Ohjelmasta otetaan mielellään vastaan palautetta.
+Repositoriossa on toistaiseksi suoritettava ohjelmatiedosto ainoastaan Windowsille. Ohjelman koodi löytyy omasta kansiostaan ja sitä voi ajaa myös muilla käyttöjärjestelmillä, jos tietokoneelle on asennettu Python-tulkki. Ohjelman ensimmäisellä käyttökerralla käyttäjä joutuu todennäköisesti sallimaan sen toiminnan tietoturvaohjelmastaan. Tätä todennäköisesti ehdotetaan automaattisesti. Ohjelmasta otetaan mielellään vastaan palautetta.
 
 Käyttöohjeet:
 * Ensimmäisenä ohjelma kysyy alueen osoitetta. Syötä se samassa muodossa kuin syöttäisit sen 0100100-palveluun. (Esimerkkitie/Esimerkkitie 30/Esimerkkitie 30 12345 Toimipaikka)
