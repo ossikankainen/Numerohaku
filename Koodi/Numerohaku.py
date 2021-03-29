@@ -50,9 +50,19 @@ def muodostaHakulausekkeet(osoite,alku,loppu):
     
     return hakulausekkeet
 
-def tulostaTulokset(sisalto,kahva,tiedot):
+def tulostaTulokset(sisalto,kahva,tiedot,aakkoset,hakulauseke,eka_kerta):
     for i in range(len(sisalto)):
         if sisalto[0].text[0] == "L" and i != 0: # Onnistunut tulos alkaa sanalla 'Löytyi'. Ei tulosteta löytyneiden lukumäärää (i=0)
+            if (hakulauseke.split("*")[0] not in aakkoset):
+                aakkoset.append(hakulauseke.split("*")[0]) # Tallennetaan alkukirjaimet, joilla löytyi tuloksia
+            
+            if (kahva == "aakkoset"):
+                if (eka_kerta == True):
+                    print("Huom! Aakkoslistaus ei sisällä duplikaattitulosten poistoa.")
+                    eka_kerta = False
+                print(hakulauseke.split("*")[0])
+                return tiedot,aakkoset,eka_kerta
+
             teksti = str(sisalto[i].text)
             teksti = teksti.split()
             nimi = teksti[1]
@@ -72,7 +82,8 @@ def tulostaTulokset(sisalto,kahva,tiedot):
                         numero = teksti[indeksi] + teksti[indeksi+1] + teksti[indeksi+2]
                     tiedot[nimi] = numero
                     print(nimi, numero)
-    return tiedot
+
+    return tiedot,aakkoset,eka_kerta
 
 def haeNumero(hakulausekkeet):
     from selenium import webdriver
@@ -132,30 +143,18 @@ def haeNumero(hakulausekkeet):
             if (sisalto == edellinen_sisalto):
                 time.sleep(60) # 0100100 ei suostu tekemään hakuja rajattoman tiheään
                 searchInputElement.send_keys(Keys.ENTER)
+                time.sleep(3)
                 sisalto = driver.find_elements_by_class_name('entry')
-                
-            if (kahva == "aakkoset"):
-                if (eka_kerta == True):
-                    print("Huom! Aakkoslistaus ei sisällä duplikaattitulosten poistoa.")
-                    eka_kerta = False
-                aakkoset.append(hakulauseke.split("*")[0])
-                print(hakulauseke.split("*")[0])
-            else:
-                tiedot = tulostaTulokset(sisalto,kahva,tiedot)
 
-        print("Valitse tallennetaanko tiedot. Tallennuspaikka on ohjelman kansio, jossa ohjelma ajetaan.")
+            tiedot,aakkoset,eka_kerta = tulostaTulokset(sisalto,kahva,tiedot,aakkoset,hakulauseke,eka_kerta)
+
+        print("Valitse tallennetaanko aakkoset, joilla tuloksia löytyi. Tallennuspaikka on kansio, jossa ohjelma ajetaan.")
         valinta = input("Talletaanko tiedot (kyllä/ei): ").lower()
         if (valinta == "kyllä"):
             nimi = input("Anna haluamasi tiedostonimi: ")
-            if (kahva == "aakkoset"):
-                with open(nimi+".txt",'w') as f:
-                    for aakkonen in aakkoset:
-                        f.write("%s\n" % aakkonen)
-            else:
-                f = open(nimi+".txt","w")
-                for avain in tiedot.keys():
-                    f.write("'{}':'{}'\n".format(avain,tiedot[avain]))
-                f.close()
+            with open(nimi+".txt",'w') as f:
+                for aakkonen in aakkoset:
+                    f.write("%s\n" % aakkonen)
      
     driver.close()
     print("Ohjelman suoritus päättyi. Voit sulkea ikkunan.")
