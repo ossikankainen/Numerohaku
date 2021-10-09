@@ -1,0 +1,1 @@
+<polku>\pyinstaller.exe --onefile --add-data="sukunimet_uusi.csv;." --add-binary="chromedriver.exe;." --add-binary="geckodriver.exe;." Numerohaku.py
