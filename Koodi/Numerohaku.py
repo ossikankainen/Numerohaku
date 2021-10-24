@@ -9,7 +9,7 @@ import time
 
 def main():
     # try:
-    NIMIEN_MAARA = 253
+    NIMIEN_MAARA = 2000
 
     osoite = input("Anna alueen osoite: ")
 
@@ -43,7 +43,7 @@ def muodostaPolku(tiedosto):
     return os.path.join(juuri,tiedosto)
 
 def muodostaHakulausekkeet(osoite,alku,loppu):
-    TIEDOSTONIMI = "sukunimet_uusi.csv"
+    TIEDOSTONIMI = "sukunimet_uusi_2000.csv"
 
     polku = muodostaPolku(TIEDOSTONIMI)
     # Käydään läpi csv-tiedosto, joka sisältää listan sukunimien alkukirjaimista
@@ -102,9 +102,9 @@ def haeNumero(hakulausekkeet):
         sisalto = driver.find_elements_by_class_name('entry')
 
         if (sisalto == edellinen_sisalto):
-            time.sleep(30) # 0100100 ei suostu tekemään hakuja rajattoman tiheään
+            time.sleep(60) # 0100100 ei suostu tekemään hakuja rajattoman tiheään
             searchInputElement.send_keys(Keys.ENTER)
-            time.sleep(2)
+            time.sleep(3)
             sisalto = driver.find_elements_by_class_name('entry')
 
         aakkoset = tulostaTulokset(sisalto, aakkoset, hakulauseke)
